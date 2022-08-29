@@ -4,8 +4,8 @@ library(text2vec)
 
 import_stopwords_as_regex <- function() {
   
-  stopwords <- read_csv("/scratch/group/pract-txt-mine/sbuongiorno/stopwords_text2vec_1017something.csv") 
-
+  stopwords <- read_csv("/scratch/group/pract-txt-mine/sbuongiorno/congress-shiny/preprocess-data/stopwords_text2vec.csv") 
+  
   stopwords <- stopwords %>%
     summarise(all = paste0(stop_word, collapse="|"))
   
