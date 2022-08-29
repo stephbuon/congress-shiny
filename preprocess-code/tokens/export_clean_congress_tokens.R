@@ -53,14 +53,14 @@ for (d in decades) {
   filtered_data <- data %>%
     filter(decade == d)
   
-  filtered_data <- foreach(m = isplitRows(filtered_data, chunks=cores), .combine='rbind',
+  tokenized_data <- foreach(m = isplitRows(filtered_data, chunks=cores), .combine='rbind',
                           .packages='tidytext') %dopar% {
                             unnest_tokens(m, ngrams, text, token = "ngrams", n = j)
                           }
   
-  filtered_data <- remove_stopwords(filtered_data)
+  tokenized_data <- remove_stopwords(tokenized_data)
   
-  fwrite(filtered_data, paste0(dir, "/clean_congress_tokens_", d, ".csv"))
+  fwrite(tokenized_data, paste0(dir, "/clean_congress_tokens_", d, ".csv"))
   
 }
 
