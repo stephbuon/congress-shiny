@@ -8,7 +8,7 @@ library(itertools)
 
 
 j = 1 
-cores=35
+cores=25
 cl <- makeCluster(35, outfile = "") 
 
 registerDoParallel(cl)
