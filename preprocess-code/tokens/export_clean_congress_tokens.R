@@ -2,16 +2,6 @@ library(tidyverse)
 library(lubridate)
 library(tidytext)
 library(data.table)
-library(foreach)
-library(doParallel)
-library(itertools)
-
-
-j = 1 
-cores=25
-cl <- makeCluster(cores, outfile = "") 
-
-registerDoParallel(cl)
 
 import_stopwords_as_regex <- function() {
   
@@ -53,12 +43,8 @@ for (d in decades) {
   filtered_data <- data %>%
     filter(decade == d)
   
-  
-  out <- foreach(m = isplitRows(filtered_data, chunks=25), .combine='rbind',
-                          .packages='tidytext') %dopar% {
-                            unnest_tokens(m, ngrams, text, token = "ngrams", n = j)
-                          }
-  
+  filtered_data <- filtered_data %>%
+  unnest_tokens(word, text)
   
   out <- remove_stopwords(out)
   
