@@ -53,7 +53,7 @@ for (d in decades) {
   filtered_data <- data %>%
     filter(decade == d)
   
-  out <- foreach(m = isplitRows(filtered_data, chunks=cores), .combine='rbind',
+  out <- foreach(m = isplitRows(filtered_data, chunks=25), .combine='rbind',
                           .packages='tidytext') %dopar% {
                             unnest_tokens(m, ngrams, text, token = "ngrams", n = j)
                           }
