@@ -46,7 +46,7 @@ for (d in decades) {
   filtered_data <- filtered_data %>%
   unnest_tokens(word, text)
   
-  out <- remove_stopwords(out)
+  filtered_data <- remove_stopwords(filtered_data)
   
   fwrite(out, paste0(dir, "/clean_congress_tokens_", d, ".csv"))
   
