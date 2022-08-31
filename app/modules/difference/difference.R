@@ -21,7 +21,7 @@ difference_ui <- function(id) {
         
         textInput(NS(id, "wv_textbox"), 
                   "Keyword:", 
-                  "congress"),
+                  "russian"),
         uiOutput(NS(id, "wv_action_button"),
                  onclick = paste0("Shiny.setInputValue('", ns('btnLabel'),"', this.innerText);")),
         br(),
@@ -145,8 +145,8 @@ observeEvent(input$wv_text_box_1,{
 
 output$difference <- renderPlotly({
   
-  #decades <- c(1800, 1810, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890)
-  decades <- c(1970, 1980, 1990, 2000, 2010)
+  decades <- c(1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000)
+  #decades <- c(1970, 1980, 1990, 2000, 2010)
   
   if(vals$btn) { # If button is clicked take the value of the button
     out <- input_loop(input$wv_textbox, decades, range_start, add_decade_col = TRUE, input_button_label = input$btnLabel, make_m = FALSE) 
@@ -168,11 +168,11 @@ output$difference <- renderPlotly({
                                       width = 1.5))) %>%
       layout(xaxis = list(autotick = F,
                           tickmode = "array", 
-                          #tickvals = c(1800, 1810, 1820, 1830, 1840, 1850, 1860, 1870, 1880, 1890),
-                          tickvals = c(1970, 1980, 1990, 2000, 2010),
+                          tickvals = decades,
+                          #tickvals = c(1970, 1980, 1990, 2000, 2010),
                           dtick = 10,
-                          #range = c(1800, 1900)),
-                          range = c(1970, 2010)),
+                          range = c(1900, 2000)),
+                          #range = c(1970, 2010)),
              title = paste0("Relationship of ", "\"", label, "\"", " to ", "\"", input$wv_textbox, "\"", " over time")) %>%
       config(displayModeBar = F) } else {
         

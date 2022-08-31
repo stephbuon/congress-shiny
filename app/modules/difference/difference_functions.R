@@ -36,7 +36,8 @@ input_loop <- function(input, decades, range_start, make_m, add_decade_col, ...)
 
 
 get_button <- function(wv_textbox) {
-  decades <- c(1970, 2010)
+  #decades <- c(1970, 2010)
+  decades <- c(1900, 2000)
   
   out <- input_loop(wv_textbox, decades, range_start, make_m = TRUE, add_decade_col = FALSE)
   

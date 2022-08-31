@@ -10,7 +10,6 @@ if (server == TRUE) {
   modules_dir <- "~/projects/congress-shiny/app/modules/" }
 
 
-
 library(shiny)
 library(shinythemes)
 library(shinyWidgets)
