@@ -1,6 +1,6 @@
 library(tidyverse)
 
-code_dir <- "~/projects/congress-shiny/preprocess-code/collocates/collocates-functions/"
+code_dir <- "~/projects/congress-shiny/preprocess-code/collocates/clean-collocates/collocates-functions/"
 source(paste0(code_dir, "clean_collocates.R"))
 source(paste0(code_dir, "count_collocates.R"))
 source(paste0(code_dir, "score_collocates.R"))
@@ -9,7 +9,7 @@ keyword <- "all"
 #keyword <- "concerns"
 #keyword <- "property"
 
-data_dir <- "~/projects/congress-shiny/app/app-data/collocates/clean_collocates/"
+data_dir <- "~/projects/congress-shiny-data/app/app-data/context/"
 collocates <- read_csv(paste0(data_dir, keyword, "_adj_noun_collocates.csv"))
 
 collocates <- clean_collocates(collocates, keyword)
