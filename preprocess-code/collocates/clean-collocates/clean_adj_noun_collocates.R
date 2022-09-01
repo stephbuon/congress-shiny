@@ -9,7 +9,7 @@ keyword <- "all"
 #keyword <- "concerns"
 #keyword <- "property"
 
-data_dir <- "~/projects/congress-shiny/app/app-data/collocates/"
+data_dir <- "~/projects/congress-shiny/app/app-data/collocates/clean_collocates/"
 collocates <- read_csv(paste0(data_dir, keyword, "_adj_noun_collocates.csv"))
 
 collocates <- clean_collocates(collocates, keyword)
