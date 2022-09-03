@@ -9,7 +9,7 @@ library(itertools)
 
 j = 1 
 cores=25
-cl <- makeCluster(35, outfile = "") 
+cl <- makeCluster(cores, outfile = "") 
 
 registerDoParallel(cl)
 
@@ -53,7 +53,7 @@ for (d in decades) {
   filtered_data <- data %>%
     filter(decade == d)
   
-  filtered_data <- foreach(m = isplitRows(filtered_data, chunks=35), .combine='rbind',
+  filtered_data <- foreach(m = isplitRows(filtered_data, chunks=cores), .combine='rbind',
                           .packages='tidytext') %dopar% {
                             unnest_tokens(m, ngrams, text, token = "ngrams", n = j)
                           }

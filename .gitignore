@@ -1,4 +1,6 @@
- # directories
+# directories
 app/app-data/collocates/
 app/app-data/word_embeddings/
-origin-data/
+
+preprocess-data/collocates/
+preprocess-data/congress-tokens/
