@@ -7,11 +7,11 @@ library(doParallel)
 library(itertools)
 
 
-j = 1 
-cores=25
-cl <- makeCluster(cores, outfile = "") 
+#j = 1 
+#cores=25
+#cl <- makeCluster(cores, outfile = "") 
 
-registerDoParallel(cl)
+#registerDoParallel(cl)
 
 import_stopwords_as_regex <- function() {
   
@@ -47,16 +47,14 @@ data <- data %>%
   mutate(year = year(date)) %>%
   mutate(decade = year - year %% 10)
   
-decades <- c(1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000)
+decades <- c(1900, 1910)#, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000)
 
 for (d in decades) {
   filtered_data <- data %>%
     filter(decade == d)
   
-  filtered_data <- foreach(m = isplitRows(filtered_data, chunks=cores), .combine='rbind',
-                          .packages='tidytext') %dopar% {
-                            unnest_tokens(m, ngrams, text, token = "ngrams", n = j)
-                          }
+  filtered_data <- filtered_data %>%
+    unnest_tokens(word, text)
   
   filtered_data <- remove_stopwords(filtered_data)
   
