@@ -55,7 +55,7 @@ for (d in decades) {
   
   filtered_data <- foreach(m = isplitRows(filtered_data, chunks=35), .combine='rbind',
                           .packages='tidytext') %dopar% {
-                            unnest_tokens(m, ngrams, text, token = "word", n = j)
+                            unnest_tokens(m, ngrams, text, token = "ngrams", n = j)
                           }
   
   filtered_data <- remove_stopwords(filtered_data)
