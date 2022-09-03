@@ -62,22 +62,34 @@ context_ui <- function(id) {
             label = "Decade (Top): ",
             grid = TRUE,
             force_edges = TRUE,
-            choices = c("1970",
+            choices = c("1900",
+                        "1910",
+                        "1920",
+                        "1930",
+                        "1940",
+                        "1950",
+                        "1960",
+                        "1970",
                         "1980",
                         "1990",
-                        "2000",
-                        "2010")),
+                        "2000")),
           
           sliderTextInput(
             inputId = NS(id,"decade_collocates_bottom"),
             label = "Decade (Bottom): ",
             grid = TRUE,
             force_edges = TRUE,
-            choices = c("1970",
+            choices = c("1900",
+                        "1910",
+                        "1920",
+                        "1930",
+                        "1940",
+                        "1950",
+                        "1960",
+                        "1970",
                         "1980",
                         "1990",
-                        "2000",
-                        "2010"),
+                        "2000"),
             selected = "2000"),
           
           sliderTextInput(
@@ -89,26 +101,26 @@ context_ui <- function(id) {
                         "Positive",
                         "Negative"))),
         
-        conditionalPanel(
-          condition = "input.measure == 'similarity'", ns = ns,
-          
-          sliderTextInput(
-            inputId = NS(id,"window_size"),
-            label = "Window Size: ",
-            grid = TRUE,
-            force_edges = TRUE,
-            choices = c("1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "Full"),
-            selected = "5")),
+        # conditionalPanel(
+        #   condition = "input.measure == 'similarity'", ns = ns,
+        #   
+        #   sliderTextInput(
+        #     inputId = NS(id,"window_size"),
+        #     label = "Window Size: ",
+        #     grid = TRUE,
+        #     force_edges = TRUE,
+        #     choices = c("1",
+        #                 "2",
+        #                 "3",
+        #                 "4",
+        #                 "5",
+        #                 "6",
+        #                 "7",
+        #                 "8",
+        #                 "9",
+        #                 "10",
+        #                 "Full"),
+        #     selected = "5")),
         
         width = 2),
       
@@ -240,7 +252,7 @@ context_server <- function(id) {
           vals$btn == FALSE }
         
         out <- data.frame()
-        decades <- c(1970, 1980, 1990, 2000, 2010)
+        decades <- c(1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000)
         
         for(d in 1:length(decades)) {
           
@@ -270,7 +282,7 @@ context_server <- function(id) {
         out <- out %>%
           mutate(row_id = seq(along.with = out$word, from = 0)) # could be any column
         
-        render_value_8(out)
+        #render_value_8(out)
         
         validate(need(out$decade, "Search for a word from the Hansard Corpus"))
         
@@ -289,9 +301,9 @@ context_server <- function(id) {
                 height=650) %>%
           layout(xaxis = list(autotick = F,
                               tickmode = "array",
-                              tickvals = c(1970, 1980, 1990, 2000, 2010),
+                              tickvals = c(1900, 1910, 1920, 1930, 1940, 1950, 1960, 1970, 1980, 1990, 2000),
                               dtick = 10,
-                              range = c(1970, 2010)),
+                              range = c(1900, 2000)),
                  title = paste0("Words Context for ", "\"", search_word, "\"", " via Embeddings")) %>%
           config(displayModeBar = F)
         
@@ -300,46 +312,46 @@ context_server <- function(id) {
       
     })
     
-    render_value_8 = function(NN){
-      output$aab <- renderDataTable({
-        s <- event_data("plotly_click", source = "aa")  # change on click, not on shiny input change
-        
-        print(s)
-        
-        validate(need(!is.null(s), "Click on a point to see PLACEHOLDER"))
-        
-        jkl <- NN %>%
-          filter(row_id == s$pointNumber)
-        
-        word <- jkl$word
-        
-        
-        
-        cached_hansard_1800 <- cache(s$x)
-        
-        j <- cached_hansard_1800[cached_hansard_1800 %like% word]
-        
-        #j <- quanteda_kwic(cached_hansard_1800, word)
-        
-        # I've decided to use phrase() irregardless of whether the word is 1 or more
-        # I suspect this will make my code more veristile 
-        
-        #validate(need(!is.null(j), "placeholder"))
-        
-        j <- as.data.table(kwic(j, pattern = phrase(word), window = 300, valuetype = "fixed", separator = " ", case_insensitive = TRUE))
-        j <- select(j, -docname, -to, -from, -pattern)
-        
-        
-        #j <- memo_quanteda_kwic(cached_hansard_1800, word)
-        
-        
-        j <- set_window_size(j, input$window_size)
-        
-        
-        return(datatable(j,
-                         options = list(dom = 'ip'),
-                         filter = list(position = "top")))
-      }) }
+    # render_value_8 = function(NN){
+    #   output$aab <- renderDataTable({
+    #     s <- event_data("plotly_click", source = "aa")  # change on click, not on shiny input change
+    #     
+    #     print(s)
+    #     
+    #     validate(need(!is.null(s), "Click on a point to see PLACEHOLDER"))
+    #     
+    #     jkl <- NN %>%
+    #       filter(row_id == s$pointNumber)
+    #     
+    #     word <- jkl$word
+    #     
+    #     
+    #     
+    #     cached_hansard_1800 <- cache(s$x)
+    #     
+    #     j <- cached_hansard_1800[cached_hansard_1800 %like% word]
+    #     
+    #     #j <- quanteda_kwic(cached_hansard_1800, word)
+    #     
+    #     # I've decided to use phrase() irregardless of whether the word is 1 or more
+    #     # I suspect this will make my code more veristile 
+    #     
+    #     #validate(need(!is.null(j), "placeholder"))
+    #     
+    #     j <- as.data.table(kwic(j, pattern = phrase(word), window = 300, valuetype = "fixed", separator = " ", case_insensitive = TRUE))
+    #     j <- select(j, -docname, -to, -from, -pattern)
+    #     
+    #     
+    #     #j <- memo_quanteda_kwic(cached_hansard_1800, word)
+    #     
+    #     
+    #     j <- set_window_size(j, input$window_size)
+    #     
+    #     
+    #     return(datatable(j,
+    #                      options = list(dom = 'ip'),
+    #                      filter = list(position = "top")))
+    #   }) }
     
     
     
@@ -363,6 +375,8 @@ context_server <- function(id) {
                 y = ~reorder(grammatical_collocates, n),
                 type = 'bar',
                 hovertext = n,
+                hoverinfo = n,
+                #hovertext = n,
                 orientation = 'h',
                 marker= list(color = 'rgb(158,202,225)',
                              line = list(color = 'rgb(8,48,107)',

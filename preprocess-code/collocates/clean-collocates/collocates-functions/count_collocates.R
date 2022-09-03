@@ -2,7 +2,7 @@ library(tidyverse)
 
 count_collocates <- function(collocates) {
   
-  collocates$year <- format(collocates$year, format="%Y")
+  collocates$year <- as.numeric(format(collocates$year, format="%Y"))
   
   collocates <- collocates %>%
     mutate(decade = year - year %% 10)

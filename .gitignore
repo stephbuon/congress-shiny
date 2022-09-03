@@ -1,3 +1,4 @@
  # directories
- 2 app/app-data/
- 3 origin-data/
+app/app-data/collocates/
+app/app-data/word_embeddings/
+origin-data/

@@ -21,7 +21,7 @@ difference_ui <- function(id) {
         
         textInput(NS(id, "wv_textbox"), 
                   "Keyword:", 
-                  "russian"),
+                  "liberty"),
         uiOutput(NS(id, "wv_action_button"),
                  onclick = paste0("Shiny.setInputValue('", ns('btnLabel'),"', this.innerText);")),
         br(),
@@ -188,15 +188,14 @@ output$difference <- renderPlotly({
 observeEvent(input$about_difference, {
   showModal(modalDialog(
     title = "Word Embeddings: Difference",
-    "Define",
+    "",
     br(),
     p(),
     strong("Controls:"),
-    "Use the \"Keywords List\" drop down box to select a scholar curated vocabulary list, or choose \"Blank Plot\" to start with an empty graph.",
-    "Type search terms in each . The ",
+    "",
     br(),
     p(),
     strong("Measurement:"),
-    "Here we are using proportion instead of ENTER")) })
+    "")) })
 
   } ) }

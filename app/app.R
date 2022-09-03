@@ -6,7 +6,7 @@ if (server == TRUE) {
   data_dir <- "./app-data/"
   modules_dir <- "./modules/" 
   } else {
-  data_dir <- "~/projects/congress-shiny/app/app-data/" #small_congress/"
+  data_dir <- "~/projects/congress-shiny/app/app-data/"
   modules_dir <- "~/projects/congress-shiny/app/modules/" }
 
 
@@ -37,7 +37,7 @@ library(quanteda)
 
 # load functions
 source(paste0(modules_dir, "global_functions.R"))
-source(paste0(modules_dir, "context/collocates_functions.R"))
+source(paste0(modules_dir, "collocates/collocates_functions.R"))
 ##source(paste0(modules_dir, "debate-titles/debate_titles_functions.R"))
 source(paste0(modules_dir, "difference/difference_functions.R"))
 ##source(paste0(modules_dir, "kwic/kwic_functions.R"))
@@ -52,7 +52,7 @@ source(paste0(modules_dir, "difference/difference_functions.R"))
 ##source(zpaste0(modules_dir, "nation-concerns/nation_concerns.R"))
 ##source(paste0(modules_dir, "nation-pairs/nation_pairs.R"))
 ##source(paste0(modules_dir, "longest-speeches/longest_speeches.R"))
-#source(paste0(modules_dir, "word-context/word_context.R"))
+source(paste0(modules_dir, "word-context/word_context.R"))
 ##source(paste0(modules_dir, "purpose/purpose.R"))
 ##source(paste0(modules_dir, "code/code.R"))
 ##source(paste0(modules_dir, "data/data.R"))
@@ -60,12 +60,12 @@ source(paste0(modules_dir, "difference/difference_functions.R"))
 ##source(paste0(modules_dir, "debate-titles/debate_titles.R"))
 ##source(paste0(modules_dir, "top-speakers/top_speakers.R"))
 ##source(paste0(modules_dir, "longest-debates/longest_debates.R"))
-#source(paste0(modules_dir, "collocates/collocates.R"))
+source(paste0(modules_dir, "collocates/collocates.R"))
 ##source(paste0(modules_dir, "speech-lengths/speech_lengths.R"))
 source(paste0(modules_dir, "difference/difference.R"))
 ##source(paste0(modules_dir, "speaker-comparison/speaker_comparison.R"))
 ##source(paste0(modules_dir, "vector-space/vector_space.R"))
-source(paste0(modules_dir, "context/context.R"))
+#source(paste0(modules_dir, "context/context.R"))
 
 
  ui <- fluidPage(
@@ -82,8 +82,8 @@ source(paste0(modules_dir, "context/context.R"))
 #              tabPanel("Introduction",
 #                       introduction_ui("ndbs")),
 # 
-#              # tabPanel("Time",
-#              #          collocates_ui("collocates")),
+tabPanel("Collocates",
+         collocates_ui("collocates")),
 # 
 #              navbarMenu("Speakers",
 # 
@@ -121,8 +121,8 @@ source(paste0(modules_dir, "context/context.R"))
 #                                 vector_space_ui("vector_space")),
 # 
                          tabPanel("Word Context",
-                                  context_ui("context")),
-#                                  #word_context_ui("word_context")),
+#                                  context_ui("context")),
+                                  word_context_ui("word_context")),
 # 
                          tabPanel("Difference",
                                   difference_ui("difference"))),
@@ -147,17 +147,17 @@ source(paste0(modules_dir, "context/context.R"))
 #   network_server("network")
 #   nation_concerns_server("nation_concerns")
 #   nation_pairs_server("nation_pairs")
-#   #word_context_server("word_context")
+word_context_server("word_context")
 #   debate_titles_server("debate_titles")
 #   longest_speeches_server("longest_speeches")
 #   longest_debates_server("longest_debates")
 #   top_speakers_server("top_speakers")
-#   #collocates_server("collocates")
+collocates_server("collocates")
 #   speech_lengths_server("speech_lengths")
    difference_server("difference")
 #   speaker_comparison_server("speaker-comparison")
 #   vector_space_server("vector_space")
-   context_server("context") # == collocates + word_context
+#   context_server("context") # == collocates + word_context
 # 
    }
  
